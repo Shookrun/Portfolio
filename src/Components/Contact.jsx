@@ -6,63 +6,13 @@ const Contact = () => {
     Aos.init({ duration: 1000 });
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const name = e.target.elements.name.value;
-    const email = e.target.elements.email.value;
-    const message = e.target.elements.message.value;
-
-    // SendGrid API anahtarı
-    const apiKey = 'YOUR_SENDGRID_API_KEY';
-
-    // E-posta gönderme işlemi için SendGrid kullanımı
-    try {
-      const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          personalizations: [
-            {
-              to: [
-                {
-                  email: 'recipient@example.com', // Alıcı e-posta adresi
-                },
-              ],
-              subject: 'New Contact Form Submission',
-            },
-          ],
-          from: {
-            email: 'your-email@example.com', // Gönderen e-posta adresi
-          },
-          content: [
-            {
-              type: 'text/plain',
-              value: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-            },
-          ],
-        }),
-      });
-
-      if (response.ok) {
-        console.log('E-posta gönderildi.');
-      } else {
-        console.error('E-posta gönderme başarısız oldu.');
-      }
-    } catch (error) {
-      console.error('Hata:', error);
-    }
-  };
-
+  
   return (
     <div id="Contact" className="p-4 lg:p-20 flex flex-col items-center justify-center">
       <h1 data-aos="fade-left" className="text-[52px] font-semibold mb-20 leading-normal uppercase text-fuchsia-500">
         Contact Me
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 lg:w-1/2">
+      <form className="flex flex-col gap-2 lg:w-1/2">
         <div className="lg:flex gap-9">
           <input
             name="name"
